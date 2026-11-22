@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Privacidad — Gestión de Pensiones</title>
+  <style>
+    :root { --primary: #273444; --dark: #0f172a; --bg: #f7f8fa; --card: #ffffff; --border: #dce2ea; --muted: #374151; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--dark); line-height: 1.65; }
+    header { background: var(--primary); color: #fff; padding: 32px 20px; text-align: center; }
+    main { max-width: 820px; margin: 28px auto; padding: 0 20px 48px; }
+    article { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+    h2 { margin-top: 24px; font-size: 1.15rem; color: var(--primary); }
+    p, li { color: var(--muted); }
+    a { color: #1e3a8a; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Política de Privacidad</h1>
+    <p>Aplicación Gestión de Pensiones • Última actualización: Noviembre de 2026</p>
+  </header>
+  <main>
+    <article>
+      <p><strong>Gestión de Pensiones</strong> (paquete <code>com.gestionpensiones.app</code>), desarrollada por <strong>Edward Molina</strong>, respeta la privacidad de cada usuario y trata la información bajo el principio de mínimo privilegio.</p>
+
+      <h2>1. Datos de cuenta y autenticación con Google</h2>
+      <p>Al iniciar sesión con Google, la aplicación solicita acceso únicamente a tu nombre, dirección de correo electrónico e identificador de cuenta (<code>userinfo.email</code>, <code>userinfo.profile</code>) con el fin exclusivo de autenticar tu sesión, verificar el estado de tu licencia y vincular tu dispositivo autorizado.</p>
+
+      <h2>2. Uso estricto del permiso de Google Drive (<code>drive.appdata</code>)</h2>
+      <p>La aplicación utiliza exclusivamente el alcance limitado <code>https://www.googleapis.com/auth/drive.appdata</code>. Este permiso concede acceso únicamente a una carpeta privada oculta creada por la propia aplicación dentro del Google Drive personal del usuario, para:</p>
+      <ul>
+        <li>Guardar y restaurar la copia de seguridad JSON de los gestores y trámites del usuario.</li>
+        <li>Consultar la cuota disponible de almacenamiento del usuario antes de subir un respaldo.</li>
+      </ul>
+      <p>La aplicación <strong>no lee, modifica ni accede</strong> a documentos, fotografías, hojas de cálculo ni otros archivos personales de tu Google Drive.</p>
+
+      <h2>3. Almacenamiento local y consultas IVSS</h2>
+      <p>Los registros operativos se almacenan localmente en la base de datos SQLite del teléfono del usuario. El reconocimiento de texto (OCR) de cédulas se procesa localmente en el dispositivo. Las consultas al portal oficial del IVSS se realizan directamente desde el dispositivo a petición del usuario.</p>
+
+      <h2>4. Telemetría técnica sin información personal</h2>
+      <p>Opcionalmente, el usuario puede habilitar o deshabilitar el diagnóstico técnico anónimo en Ajustes. Estos eventos registran únicamente errores técnicos, tiempos de respuesta e identificadores anónimos (hash irreversible), sin nombres, cédulas, teléfonos ni correos personales.</p>
+
+      <h2>5. No cesión de datos y eliminación</h2>
+      <p>No vendemos, alquilamos ni compartimos datos personales con terceros o fines publicitarios. Puedes cerrar sesión y limpiar tu base local desde Ajustes, así como revocar el acceso de la aplicación en cualquier momento desde la configuración de seguridad de tu cuenta de Google.</p>
+
+      <h2>6. Contacto</h2>
+      <p>Para soporte, consultas de privacidad o eliminación de licencia, escribe a: <a href="mailto:edward636@gmail.com">edward636@gmail.com</a>.</p>
+      <p><a href="./">&larr; Volver al inicio</a></p>
+    </article>
+  </main>
+</body>
+</html>
