@@ -3,44 +3,318 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gestión de Pensiones — Sistema Integral de Control y Liquidación</title>
+  <title>Gestión de Pensiones</title>
+  <meta name="description" content="Gestión de Pensiones es una aplicación Android administrativa y offline-first para organizar expedientes de trámites, seguimiento IVSS, liquidación de honorarios por gestor y respaldo privado en Google Drive appDataFolder." />
+  <meta property="og:site_name" content="Gestión de Pensiones" />
+  <meta property="og:title" content="Gestión de Pensiones" />
+  <meta property="og:description" content="Herramienta Android independiente de gestión administrativa y contable de trámites de pensiones con respaldo cifrado privado en Google Drive appDataFolder." />
+  <meta property="og:type" content="website" />
   <style>
-    :root { --primary: #273444; --dark: #0f172a; --bg: #f7f8fa; --card: #ffffff; --border: #dce2ea; --accent: #10b981; --muted: #4b5563; }
+    :root {
+      --primary: #273444;
+      --dark: #0f172a;
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --border: #dce2ea;
+      --accent: #10b981;
+      --accent-soft: #ecfdf5;
+      --accent-text: #065f46;
+      --muted: #374151;
+      --link: #1d4ed8;
+    }
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--dark); line-height: 1.6; }
-    header { background: linear-gradient(135deg, var(--primary), var(--dark)); color: #fff; padding: 48px 20px; text-align: center; }
-    header h1 { margin: 0 0 10px; font-size: 2rem; }
-    header p { margin: 0 auto; max-width: 620px; color: #cbd5e1; }
-    main { max-width: 820px; margin: 32px auto; padding: 0 20px; }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 20px; }
-    .badge { display: inline-block; background: rgba(16, 185, 129, 0.14); color: #047857; font-weight: 600; font-size: 0.85rem; padding: 4px 12px; border-radius: 999px; margin-bottom: 12px; }
-    ul { padding-left: 20px; color: var(--muted); }
-    a { color: #1e3a8a; font-weight: 600; }
-    footer { text-align: center; padding: 24px 20px 40px; color: var(--muted); font-size: 0.9rem; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.65;
+    }
+    nav {
+      background: #0b1324;
+      border-bottom: 1px solid #1e293b;
+      padding: 12px 20px;
+    }
+    .nav-inner {
+      max-width: 920px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand-link {
+      color: #ffffff;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.94rem;
+    }
+    .nav-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .nav-links a:hover, .nav-links a:focus { color: #ffffff; text-decoration: underline; }
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      color: #ffffff;
+      padding: 44px 20px;
+      text-align: center;
+    }
+    .hero-inner { max-width: 780px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      padding: 10px 18px;
+      margin-bottom: 16px;
+    }
+    header h1 { margin: 0 0 12px; font-size: 2.1rem; letter-spacing: -0.02em; }
+    header p { margin: 0 auto; max-width: 680px; color: #e2e8f0; font-size: 1.03rem; }
+    .public-note {
+      margin-top: 14px;
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.16);
+      color: #a7f3d0;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    main { max-width: 920px; margin: 28px auto 48px; padding: 0 20px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
+      margin-bottom: 20px;
+    }
+    .card-highlight {
+      border-left: 5px solid var(--accent);
+      background: #ffffff;
+    }
+    .tag {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent-text);
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    h2 { margin-top: 4px; margin-bottom: 12px; font-size: 1.32rem; color: var(--primary); }
+    h3 { margin-top: 18px; margin-bottom: 8px; font-size: 1.06rem; color: var(--dark); }
+    p, li { color: var(--muted); }
+    ul, ol { padding-left: 22px; }
+    a { color: var(--link); font-weight: 600; }
+    .grid-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .step-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .step-box strong { display: block; color: var(--primary); margin-bottom: 6px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.94rem; }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 11px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f1f5f9; color: var(--primary); font-weight: 700; }
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 0.88em;
+      color: var(--dark);
+    }
+    .notice {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 12px;
+    }
+    footer {
+      text-align: center;
+      padding: 24px 20px 44px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+    }
   </style>
 </head>
 <body>
+  <nav aria-label="Navegación principal">
+    <div class="nav-inner">
+      <a class="brand-link" href="./">
+        <svg width="24" height="24" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="#273444" />
+          <path d="M9 10h14v3H9zm0 5h10v3H9zm0 5h7v3H9z" fill="#ffffff" />
+          <circle cx="22" cy="21" r="4" fill="#10b981" />
+        </svg>
+        <span>Gestión de Pensiones</span>
+      </a>
+      <div class="nav-links">
+        <a href="./">Inicio</a>
+        <a href="./privacy.html">Política de Privacidad</a>
+        <a href="./terms.html">Condiciones del Servicio</a>
+        <a href="#english-overview">English Overview</a>
+      </div>
+    </div>
+  </nav>
+
   <header>
-    <h1>Gestión de Pensiones</h1>
-    <p>Aplicación Android autónoma para la gestión de expedientes, seguimiento IVSS, liquidación por gestores y respaldo privado en la nube.</p>
+    <div class="hero-inner">
+      <div class="hero-badge" aria-hidden="true">
+        <svg width="36" height="36" viewBox="0 0 40 40">
+          <rect width="40" height="40" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5" />
+          <path d="M11 12h18v3.5H11zm0 6.5h13V22H11zm0 6.5h9v3.5h-9z" fill="#f8fafc" />
+          <circle cx="27.5" cy="26.5" r="5" fill="#10b981" />
+        </svg>
+        <span style="font-weight: 700; letter-spacing: 0.02em; color: #f8fafc;">Android Utility • Offline-First</span>
+      </div>
+      <h1>Gestión de Pensiones</h1>
+      <p>Aplicación Android administrativa para el control de expedientes de trámites de pensiones, liquidación contable por gestores, seguimiento oficial IVSS y respaldo privado en la carpeta oculta de Google Drive del usuario.</p>
+      <div class="public-note">Información pública de la aplicación • No requiere inicio de sesión ni registro web</div>
+    </div>
   </header>
+
   <main>
     <section class="card">
-      <span class="badge">Privacidad por diseño</span>
-      <h2>Características principales</h2>
+      <span class="tag">Propósito de la aplicación</span>
+      <h2>¿Qué es y para qué sirve Gestión de Pensiones?</h2>
+      <p><strong>Gestión de Pensiones</strong> es una herramienta móvil profesional diseñada para gestores administrativos independientes y oficinas de asesoría previsional que necesitan llevar un registro ordenado de los trámites de pensión de sus clientes directamente en su teléfono Android.</p>
       <ul>
-        <li>Base de datos local rápida y privada en el dispositivo (SQLite).</li>
-        <li>Respaldos automáticos en tu carpeta privada oculta de Google Drive (<code>appDataFolder</code>), sin consumir almacenamiento externo ni compartir datos entre usuarios.</li>
-        <li>Captura asistida con OCR local y validación oficial IVSS.</li>
-        <li>Reportes y liquidaciones organizadas por período y gestor.</li>
+        <li><strong>Organización de expedientes por período mensual:</strong> clasificación de trámites por categoría (Vejez, Invalidez, Incapacidad, Sobreviviente), sexo, edad calculada del solicitante, gestor asignado y fecha de registro o reingreso.</li>
+        <li><strong>Control financiero y liquidación de honorarios:</strong> cálculo de montos pactados, registro de abonos parciales o pagos completos en múltiples monedas y resúmenes por gestor sin duplicar deudas al reingresar trámites.</li>
+        <li><strong>Seguimiento administrativo en el portal público IVSS:</strong> consulta manual o periódica iniciada bajo configuración del usuario para detectar cambios de estatus público en expedientes registrados.</li>
+        <li><strong>Captura rápida y exportación de despachos:</strong> lectura OCR local en el dispositivo para agilizar la carga de cédulas y generación de reportes de texto listos para enviar o respaldar.</li>
+        <li><strong>Respaldo privado automático en la nube personal:</strong> copia de seguridad en formato JSON dentro de la carpeta privada oculta de Google Drive (<code>appDataFolder</code>) de cada usuario.</li>
+      </ul>
+      <div class="notice">
+        <strong>Aclaración de independencia:</strong> <strong>Gestión de Pensiones</strong> es una herramienta administrativa privada desarrollada por Edward Molina. No pertenece, no representa ni está afiliada al Instituto Venezolano de los Seguros Sociales (IVSS) ni a ningún organismo gubernamental.
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="tag">Arquitectura y funcionamiento</span>
+      <h2>Cómo funciona paso a paso</h2>
+      <div class="grid-steps">
+        <div class="step-box">
+          <strong>1. Registro local seguro</strong>
+          Los datos operativos de gestores y trámites se almacenan primero en la base de datos SQLite local del dispositivo Android, funcionando incluso sin conexión a Internet.
+        </div>
+        <div class="step-box">
+          <strong>2. Autenticación OAuth</strong>
+          El usuario inicia sesión voluntariamente con su cuenta de Google dentro de la app Android para identificar su licencia de uso y asociar su respaldo personal.
+        </div>
+        <div class="step-box">
+          <strong>3. Respaldo en appDataFolder</strong>
+          La app guarda y sincroniza una copia de seguridad cifrada en tránsito exclusivamente dentro de la carpeta privada oculta asignada a la app en Google Drive.
+        </div>
+        <div class="step-box">
+          <strong>4. Control total del usuario</strong>
+          El propietario de la cuenta puede restaurar su historial al cambiar de teléfono, exportar reportes o revocar permisos desde Google en cualquier momento.
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="tag">Permisos de Google OAuth</span>
+      <h2>Cómo utiliza Gestión de Pensiones los datos y permisos de Google</h2>
+      <p>La aplicación solicita únicamente tres permisos <strong>no sensibles</strong> de Google Auth Platform, estrictamente necesarios para autenticar al usuario y resguardar su copia de seguridad privada:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Permiso (Scope)</th>
+            <th>Datos consultados</th>
+            <th>Finalidad exclusiva</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>.../auth/userinfo.email</code></td>
+            <td>Dirección de correo electrónico principal de Google.</td>
+            <td>Identificar al usuario titular de la cuenta, verificar el estado de su licencia y habilitar soporte técnico.</td>
+          </tr>
+          <tr>
+            <td><code>.../auth/userinfo.profile</code></td>
+            <td>Nombre visible e identificador básico de perfil.</td>
+            <td>Personalizar el saludo y la vista de cuenta dentro de la aplicación.</td>
+          </tr>
+          <tr>
+            <td><code>.../auth/drive.appdata</code></td>
+            <td>Únicamente la carpeta privada oculta de la aplicación en Google Drive (<code>appDataFolder</code>) y cuota disponible.</td>
+            <td>Guardar, verificar tamaño y restaurar la copia de seguridad de los trámites del propio usuario. La app <strong>nunca lee, modifica ni accede</strong> a archivos personales, fotografías, documentos o carpetas compartidas de Google Drive.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 14px;">Consulta el detalle completo sobre retención, seguridad, uso limitado y eliminación de datos en nuestra <a href="./privacy.html">Política de Privacidad</a>.</p>
+    </section>
+
+    <section class="card card-highlight" id="google-api-compliance">
+      <span class="tag">Cumplimiento de APIs de Google y Seguridad</span>
+      <h2>Cumplimiento con las Condiciones del Servicio de las APIs de Google</h2>
+      <p>El uso y la transferencia por parte de <strong>Gestión de Pensiones</strong> de información recibida de las APIs de Google cumplen estrictamente con las <a href="https://developers.google.com/terms" rel="noopener noreferrer">Condiciones del Servicio de las APIs de Google</a> y la <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener noreferrer">Política de Datos de Usuario de los Servicios de API de Google</a>, incluidos los requisitos de <strong>Uso Limitado (Limited Use)</strong>.</p>
+      <ul>
+        <li><strong>Cero publicidad y cero venta de datos:</strong> los datos obtenidos de Google nunca se venden, alquilan ni transfieren a terceros o redes publicitarias, ni se utilizan para entrenar modelos de inteligencia artificial.</li>
+        <li><strong>Utilidad administrativa sin generación de medios ni NCII:</strong> <strong>Gestión de Pensiones</strong> es exclusivamente una aplicación administrativa de texto y cálculo contable. La aplicación <strong>no genera, edita, aloja, publica ni distribuye imágenes, videos, contenido multimedia generado por IA ni imágenes íntimas no consensuadas (NCII)</strong>.</li>
+        <li><strong>Procesamiento OCR estrictamente local:</strong> cuando el usuario escanea un documento de identidad para autocompletar texto en un expediente, el reconocimiento óptico de caracteres (OCR) se ejecuta localmente en el dispositivo Android y ninguna imagen se envía a servidores externos ni a las APIs de Google.</li>
+      </ul>
+      <p>Revisa los detalles legales en las <a href="./terms.html#google-api-compliance">Condiciones del Servicio</a> y la cláusula de <a href="./privacy.html#limited-use">Uso Limitado en la Política de Privacidad</a>.</p>
+    </section>
+
+    <section class="card" id="english-overview" lang="en">
+      <span class="tag">English Overview</span>
+      <h2>Gestión de Pensiones — Application Purpose &amp; Google API Compliance</h2>
+      <p><strong>Gestión de Pensiones</strong> is an independent, offline-first Android productivity utility developed by Edward Molina for administrative case managers handling social security pension filings, accounting settlements, and personal encrypted backups.</p>
+      <p>This homepage is completely public and informational; no login or authentication is required to read application details or policies.</p>
+      <ul>
+        <li><strong>Core Functionality:</strong> Local SQLite case organization by monthly period, fee/installment settlement tracking per agent, local on-device text OCR for data entry, public IVSS filing status checks triggered by the user, and private JSON backup in the user's hidden Google Drive folder.</li>
+        <li><strong>Google OAuth Scopes (Non-Sensitive Only):</strong> The app requests only <code>userinfo.email</code>, <code>userinfo.profile</code>, and <code>drive.appdata</code>. It cannot access, list, or modify any personal files, photos, or documents in the user's Google Drive.</li>
+        <li><strong>Google API Services User Data Policy &amp; Limited Use:</strong> Gestión de Pensiones's use and transfer to any other app of information received from Google APIs strictly adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener noreferrer">Google API Services User Data Policy</a>, including the Limited Use requirements, and the <a href="https://developers.google.com/terms" rel="noopener noreferrer">Google APIs Terms of Service</a>.</li>
+        <li><strong>Safety &amp; Anti-NCII Compliance Statement:</strong> Gestión de Pensiones is strictly a text and accounting administrative utility. It does <strong>not</strong> generate, edit, host, share, or distribute images, videos, AI media, or Non-Consensual Intimate Imagery (NCII). On-device OCR runs locally on the Android phone without uploading images to external servers or Google APIs.</li>
+      </ul>
+      <p>Full legal documentation: <a href="./privacy.html#english-privacy">Privacy Policy (English &amp; Spanish)</a> • <a href="./terms.html#english-terms">Terms of Service (English &amp; Spanish)</a>.</p>
+    </section>
+
+    <section class="card">
+      <span class="tag">Soporte y enlaces legales</span>
+      <h2>Contacto del desarrollador</h2>
+      <p>Desarrollada y mantenida por <strong>Edward Molina</strong> para el proyecto <strong>Gestión de Pensiones</strong>.</p>
+      <ul>
+        <li><strong>Correo electrónico de soporte y privacidad:</strong> <a href="mailto:edward636@gmail.com">edward636@gmail.com</a></li>
+        <li><strong>Mensajería directa de soporte:</strong> <a href="https://wa.me/edward636" rel="noopener noreferrer">@edward636</a></li>
+        <li><strong>Documentos legales:</strong> <a href="./privacy.html">Política de Privacidad</a> • <a href="./terms.html">Condiciones del Servicio</a></li>
       </ul>
     </section>
-    <section class="card">
-      <h2>Transparencia y soporte</h2>
-      <p>Consulta nuestra <a href="./privacy.html">Política de Privacidad</a> para conocer cómo se protegen tus datos y el uso estricto de los permisos de Google.</p>
-      <p>Contacto y asistencia técnica: <a href="mailto:edward636@gmail.com">edward636@gmail.com</a></p>
-    </section>
   </main>
-  <footer>Elaborado por Edward Molina • Gestión de Pensiones</footer>
+
+  <footer>
+    <strong>Gestión de Pensiones</strong> • Desarrollado por Edward Molina (<a href="mailto:edward636@gmail.com">edward636@gmail.com</a>) • <a href="./privacy.html">Política de Privacidad</a> • <a href="./terms.html">Condiciones del Servicio</a>
+  </footer>
 </body>
 </html>
